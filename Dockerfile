@@ -2,7 +2,7 @@ FROM php:8.1-apache
 
 # Tải trực tiếp script, cấp quyền và cài đặt các phần mở rộng trong cùng 1 lệnh để tránh lỗi vị trí file
 RUN apt-get update && apt-get install -y curl && \
-    curl -sSL https://github.com/mlocati/docker-php-extension-installer -o /usr/local/bin/install-php-extensions && \
+    curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/download/2.12.3/install-php-extensions -o /usr/local/bin/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions pdo_mysql redis
 
