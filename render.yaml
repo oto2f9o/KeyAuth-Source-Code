@@ -1,10 +1,10 @@
 services:
-  # Cấu hình Web Service chạy KeyAuth của bạn
   - type: web
     name: keyauth-server
     env: docker
     plan: free
-    # Tự động liên kết chuỗi kết nối Redis vào biến môi trường của Web Service
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: REDIS_URL
         fromService:
@@ -12,9 +12,8 @@ services:
           type: redis
           property: connectionString
 
-# Cấu hình dịch vụ Redis gói Free
 databases:
   - type: redis
     name: keyauth-redis
-    plan: free # Định nghĩa gói miễn phí (Free Plan)
-    ipAllowList: [] # Cho phép tất cả các dịch vụ nội bộ kết nối bảo mật
+    plan: free
+    ipAllowList: []
