@@ -1,19 +1,23 @@
 FROM php:8.1-apache
 
-# Cài đặt phần mở rộng PDO MySQL và Redis cho PHP
+# Cài đặt các công cụ build và phần mở rộng cần thiết cho KeyAuth
 RUN apt-get update && apt-get install -y \
     libpcre3-dev \
+    gcc \
+    make \
+    autoconf \
     && docker-php-ext-install pdo pdo_mysql \
     && pecl install redis \
-    && docker-php-ext-enable redis
+    && docker-php-ext-enable redis \
+    && apt-get clean && rm -rf /var/lib/lists/*
 
-# Bật mod_rewrite của Apache để xử lý routing API hệ thống KeyAuth
+# Bật mod_rewrite của Apache để xử lý các đường dẫn API của KeyAuth
 RUN a2enmod rewrite
 
-# Đồng bộ mã nguồn vào vùng chạy của Apache
+# Sao chép mã nguồn vào thư mục chạy của Apache
 COPY . /var/www/html/
 
-# Phân quyền hạn đọc ghi cho server web
+# Phân quyền cho máy chủ web
 RUN chown -R www-data:www-data /var/www/html/
 
 EXPOSE 80
