@@ -1,10 +1,9 @@
 FROM php:8.1-apache
 
-# Sao chép trực tiếp file script bạn vừa tạo trên GitHub vào hệ thống Docker
-COPY install-php-extensions /usr/local/bin/
-
-# Cài đặt thêm mysqli cùng pdo_mysql và redis cho hệ thống KeyAuth
-RUN chmod +x /usr/local/bin/install-php-extensions && \
+# Tải trực tiếp script từ link raw chuẩn của tác giả, cấp quyền và cài đặt cả 3 extension cùng lúc
+RUN apt-get update && apt-get install -y curl && \
+    curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/download/2.12.3/install-php-extensions -o /usr/local/bin/install-php-extensions && \
+    chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions mysqli pdo_mysql redis
 
 # Bật mod_rewrite của Apache để xử lý các đường dẫn API
