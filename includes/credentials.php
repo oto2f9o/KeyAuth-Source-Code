@@ -7,10 +7,10 @@ NOTE: change this file name from credentials.example.php to credentials.php
 
 error_reporting(0);
 
-$databaseHost = "localhost";
-$databaseUsername = "root";
-$databasePassword = "";
-$databaseName = "main";
+$databaseHost = "mysql8003.site4now.net";
+$databaseUsername = "acf660_andzdev";
+$databasePassword = "DbPass2026!";
+$databaseName = "db_acf660_andzdev";
 
 $mysqlRequireSSL = false; // in case the MySQL server requires SSL
 
